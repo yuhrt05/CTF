@@ -37,3 +37,4 @@ print(f"Chuỗi giải mã từ s2: {decoded_s2}")
 ```
 HTB{s1mpl3_fl4g_4r1thm3t1c}
 ```
+
