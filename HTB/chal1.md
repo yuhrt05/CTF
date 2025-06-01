@@ -1,50 +1,29 @@
 # _TRUE SECRETS_
 Cùng mình giải quyết 1 bài được tag easy trong HTB nhé 🙉
-![image](https://github.com/dxurt/CTF/blob/main/HTB/Screenshot%202025-01-15%20031111.png)
-## _Solution_
-Tải tệp zip về giải nén thì được 1 file .raw
 
-![image](https://github.com/user-attachments/assets/549c1ef3-aff8-4cf4-94b0-8e01868e9213)
+![image](https://github.com/dxurt/CTF/blob/main/HTB/Screenshot%202025-01-15%20031111.png)
+
+## _Solution_
 
 Theo mô tả của bài _"...Fortunately, our unit was able to raid the home of the leader of the APT group and take a memory capture of his computer while it was still powered on..."_ thì mình đoán thử thách này liên quan đến **MEMORY DUMP**
 
 Mình dùng **volatility3** với plugin là windows.pstree để xem các tiến trình
 
-![image](https://github.com/user-attachments/assets/f9b50a22-9aef-4766-8353-6ee47772a52e)
+![image](https://github.com/user-attachments/assets/32788d97-7b8e-48e7-9d93-a28be500385c)
 
 Xem qua một lượt thì mình thấy toàn những tiến trình quen thuộc của windows như **svchost.exe**, **expoler.exe**, ... và chúng đều không nằm ở các đường dẫn lạ
 
 Lướt xuống cuối thì thấy 2 tiến trình khá lạ là *True Crypt.exe* và *7zFM.exe*
 
-![image](https://github.com/user-attachments/assets/7baf7c5b-fdb8-4298-b803-963b1a9271ab)
-
-Nên mình thử dùng plungin **windows.dumpfiles** để trích xuất hết các file có trong đó với PID của thằng ***True Crypt.exe*** là 2128
-
-![image](https://github.com/user-attachments/assets/9c9df0ff-261f-455d-a0ee-4fc64eacf6bc)
-
-Kết quả là chả có gì ngoài mấy file dll.img
-
-![image](https://github.com/user-attachments/assets/39328d9f-f9b6-4af8-9337-c73359c4bced)
-
-Mình thử strings 1 2 file, thì đều là file thực thi
-
-![image](https://github.com/user-attachments/assets/32915582-8999-4f78-9e97-e6fbda6d9325)
-
-Mình thử tiếp với PID của thằng **7zFM.exe** là 2176
-
-![image](https://github.com/user-attachments/assets/11545599-9d50-4b30-85e3-78915d54e32b)
+![image](https://github.com/user-attachments/assets/08611c37-7fe7-438f-91d3-b953a1bf096f)
 
 Kết quả có vẻ khả quan hơn khi mình nhìn thấy có 2 file .zip
 
-![image](https://github.com/user-attachments/assets/74910e5b-8420-439a-a7d1-90a7216cbfca)
+![image](https://github.com/user-attachments/assets/52433706-40a3-4f4e-be24-8d0ba85609c4)
 
 Thử unzip 1 cái xem sao
 
-![image](https://github.com/user-attachments/assets/3ca72934-c902-45ca-b7eb-d490ff034326)
-
-Lòi ra 1 file .tc, theo thói quen khi gặp file lạ thì mình hay xem hex file rồi hỏi chat gpt
-
-![image](https://github.com/user-attachments/assets/da372265-189e-4404-8f7b-88851aa16e6d)
+![image](https://github.com/user-attachments/assets/dd83858b-63bb-4081-90e7-f8edb811f106)
 
 Lần đầu mình nghe đến cái loại này, nhớ lại thì lúc nãy có làm việc với file True crypt.exe nên mình thấy cũng khá hợp lí
 
