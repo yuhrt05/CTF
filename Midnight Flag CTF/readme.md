@@ -1,4 +1,6 @@
-# _APT 1337_
+# _Midnight Flag CTF 2025_
+
+## _APT 1337_
 
 - Liệt kê tiến trình:
 > linux.psaux.PsAux
@@ -27,10 +29,9 @@ hide /usr/sbin/daemon &
 950     949     sudo    AES_IV  068131ad1d5c0c1516fce836d510ccce
 ```
 
-Thấy được dòng cuối thực hiện `hide /usr/sbin/daemon`, khả nghi nên dùng `linux.linux.pagecache.InodePages` để tìm file trong ram, lúc trong giải méo biết được plugin này nên chịu thua
+Thấy được dòng cuối thực hiện `hide /usr/sbin/daemon`, khả nghi nên dùng `linux.linux.pagecache.InodePages` để tìm file trong ram
 
 `python3 /home/kali/volatility3/vol.py -f challenge.lime linux.pagecache.InodePages --find /usr/sbin/daemon --dump`
-
 
 Dùng ida để reverse
 
@@ -131,13 +132,16 @@ Tạo file `tmp/.dat` chứa dữ liệu mã hóa, mình sẽ thực hiện tìm
 
 `python3 /home/kali/volatility3/vol.py -f challenge.lime linux.pagecache.InodePages --find /tmp/.dat --dump`
 
-![image](https://github.com/user-attachments/assets/6e867d09-c0cc-4edc-a52e-b3af34eb267e)
+![image](https://hackmd.io/_uploads/SJ7R3N5A1l.png)
 
 Decrypt bằng cách xor với `0xAA` sau đó là AES
 
-![image](https://github.com/user-attachments/assets/c24e4a2c-d8e0-405d-bc29-064b5a6db1c1)
+![image](https://hackmd.io/_uploads/ByJs0VcAkl.png)
 
-# Blackdoor
+
+HẾT !!
+
+## Blackdoor
 
 Nếu mount trực tiếp vào `virtual box` thì cần pass đăng nhập nhưng có thể dùng kali để mount và lấy được thông tin `SAM`, `SECURITY` => mật khẩu đăng nhập windows
 
@@ -153,7 +157,7 @@ Dùng tool này để trích xuất thông tin login
 
 https://github.com/fortra/impacket/blob/master/examples/secretsdump.py
 
-![image](https://github.com/user-attachments/assets/ca959b33-a32f-454d-9892-57703d981236)
+![image](https://hackmd.io/_uploads/SJDLwNc0Je.png)
 
 Lấy NTLM hash của John đem crack 
 
@@ -161,28 +165,22 @@ Pass: `1dodgeneon`
 
 Đăng nhập vào check trong autoruns là thấy được 1 schedule task trông khả nghi
 
-![image](https://github.com/user-attachments/assets/4af04a9a-70dd-4248-9ea4-a51edaec9b58)
+![image](https://hackmd.io/_uploads/SJHWuNcAyx.png)
 
-Tên file đúng phải là `mscms.dll`, đây là cách ngụy trang của malware và kèm với việc `Not verified`
+Tên file đúng phải là `mscms.dll`, đây là cách ngụy trang của malware
 
 => malware
 
 Check md5
 
-![image](https://github.com/user-attachments/assets/eeb41973-665b-463b-b30e-bdf28ae7f7ba)
+![image](https://hackmd.io/_uploads/r1eeKNq0ke.png)
 
 Thấy chương trình được đặt lịch với tên `Calibration Loader`, check trong `Task Scheduler`
 
-![image](https://github.com/user-attachments/assets/3058169e-7bdd-422d-abe6-2d3d54765b99)
+![image](https://hackmd.io/_uploads/SylmLFN901x.png)
 
 Check ID
 
-![image](https://github.com/user-attachments/assets/885dd9b3-c9df-4bdb-bb5e-0080b066931b)
+![image](https://hackmd.io/_uploads/SJw-9EqRke.png)
 
 Done.
-
-## Tham khảo:
-![image](https://github.com/user-attachments/assets/2a27acf8-5bee-4501-9954-38c4e173014e)
-
-## Tổng kết
-That was a great CTF challenge — I learned so many new things!
