@@ -176,3 +176,4 @@ Tiến hành crack: `hashcat -m 10 FD55A53B6A21E46C41F82C2FDAE82620:adbe9f7b3411
 => PASSWORD: `blueice309`
 
 ```FLAG: DVCTF{24681379:blueice309}```
+
