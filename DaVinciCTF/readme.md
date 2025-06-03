@@ -1,48 +1,48 @@
 # _Disk Analysis_
 
-![image](https://github.com/user-attachments/assets/40696e30-7945-409c-9d6a-84f2a54bfc83)
+![Screenshot 2025-05-25 212408](https://github.com/user-attachments/assets/23972689-6fe2-4c86-a76b-04a3115f49f0)
 
 Theo thói quen check trong `console history` thì có ngay được flag
 
-![Screenshot 2025-05-25 212846](https://github.com/user-attachments/assets/37994f95-50a5-4f22-8f19-00e32e0752e7)
+![Screenshot 2025-05-25 212846](https://github.com/user-attachments/assets/2b83703c-5b6e-40b8-9546-142bd9c4c14a)
 
 Truy cập ảnh
 
-![Screenshot 2025-05-25 212927](https://github.com/user-attachments/assets/c42cfc7e-3228-4564-9a7f-f4e9ea280534)
+![Screenshot 2025-05-25 212927](https://github.com/user-attachments/assets/32f519fb-1929-45e2-ae44-c794405dcfc1)
 
 # _Noted_
 
-![image](https://github.com/user-attachments/assets/76f68cbb-65cd-47f4-b023-09eb76afe02b)
+![Screenshot 2025-05-25 214803](https://github.com/user-attachments/assets/7a694546-578a-4ee3-a264-05c973e55b4b)
 
 Bài cho file .img, theo tiêu đề có ghi là `Windows 11 remembers everything, even when it's not saved.` và tên bài `Noted` nên mình nghĩ đến tính năng  `auto-save` của `Notepad`
 
 Tiến hành check theo path `C:\Users\\AppData\Local\Packages\Microsoft.WindowsNotepad_8wekyb3d8bbwe\LocalState\TabState`
 
-![image](https://github.com/user-attachments/assets/6ae4d803-4d5e-4749-bd54-25fcdd2408c1)
+![Screenshot 2025-05-25 215525](https://github.com/user-attachments/assets/d3409c0c-ac9b-4550-99c9-01e92c6a2926)
 
 Save all về và xem từng file là lấy được flag
 
-![image](https://github.com/user-attachments/assets/96a8782d-6b8c-46bb-b9b6-330f99c35da5)
+![Screenshot 2025-05-25 215708](https://github.com/user-attachments/assets/cceb99ed-0f10-43c7-a190-302b54beeb07)
 
 # _Volinux_
 
-![image](https://github.com/user-attachments/assets/dced2296-4fb6-4600-983d-a03847c5fd2e)
+![Screenshot 2025-05-25 215856](https://github.com/user-attachments/assets/467760b5-ed3e-4e03-bbb9-7790b9eb5413)
 
 Bài này cho 1 file memdump của linux và có giới thiệu đến 1 tool do chính họ đang phát triển là `volinux`, cốt lõi là nó dựa trên volatility3 nhưng dạng GUI
 
-![image](https://github.com/user-attachments/assets/a0e2a48b-bf52-4241-89b8-090d3be8d8e9)
+![Screenshot 2025-05-25 220057](https://github.com/user-attachments/assets/72f4c524-0ff8-454b-a057-26fdfd285b19)
 
 Có được tool này cũng hay tại nó sẽ tự động nhận diện nên sẽ bỏ qua được bước build kernel, symbol... thủ công
 
-![image](https://github.com/user-attachments/assets/22af65f0-ae2c-4165-8401-dc471148bdeb)
+![Screenshot 2025-05-25 220402](https://github.com/user-attachments/assets/f9e1bb57-b3b3-43b9-b9cb-d1e2a6dc25e3)
 
 Làm theo hướng dẫn là mình sẽ truy cập được web, drop file vô rồi tiến hành phân tích
 
-![image](https://github.com/user-attachments/assets/d7c6f897-72db-4d71-b469-efd29ff62514)
+![Screenshot 2025-05-25 220931](https://github.com/user-attachments/assets/dfbae8f6-6025-49ed-95f0-421731e3c83e)
 
 >Q1. What is the Linux kernel version of this memory dump?
 
-![image](https://github.com/user-attachments/assets/19d9dd63-5fe6-4bfd-b7b6-4f789643c134)
+![Screenshot 2025-05-25 221003](https://github.com/user-attachments/assets/01be901e-ab17-4b3f-83ed-8365a81b9b34)
 
 Cái này tương ứng với `banners.Banners`
 
@@ -52,7 +52,7 @@ Cái này tương ứng với `banners.Banners`
 
 Câu này mình sẽ đi chọn plugin `Bash history` tương ứng với `linux.bash`
 
-![image](https://github.com/user-attachments/assets/da62de3f-f0e7-4c59-8272-4f3cd4e0e7f4)
+![Screenshot 2025-05-25 221249](https://github.com/user-attachments/assets/e08f13c1-d503-4f0f-8b01-bd9ed7ca5d0e)
 
 Có thể thấy được hành vi của attacker là dựng máy chủ PHP, cấp quyền,... sau đó khởi chạy server cục bộ bằng lệnh `php -S localhost:8080`
 
@@ -62,7 +62,7 @@ Có thể thấy được hành vi của attacker là dựng máy chủ PHP, c�
 
 Chọn plugin `IP address` tương ứng với `linux.ip.Addr`
 
-![image](https://github.com/user-attachments/assets/a2c8205a-3155-4381-9c31-d3cc1975fcf5)
+![Screenshot 2025-05-25 222551](https://github.com/user-attachments/assets/80939141-7407-4d26-b147-551d082611af)
 
 `Answer: 192.168.1.130`
 
@@ -76,17 +76,17 @@ Vẫn trong hình trên ta có được ngay địa chỉ MAC
 
 Dùng `Bootime info` tương ứng với `linux.boottime.Boottime`
 
-![image](https://github.com/user-attachments/assets/2d9527a2-8492-49ae-b42c-0c98e66729b5)
+![Screenshot 2025-05-25 222846](https://github.com/user-attachments/assets/5cec0f24-f0c0-4c42-8a4f-637a15be5a1a)
 
 `Answer: 2025-04-21 16:20:46.752644 UTC`
 
 >Q8. What's the name of parent process of php process?
 
-![image](https://github.com/user-attachments/assets/a8c8ff47-8835-4c76-bed1-39e83622bc3f)
+![Screenshot 2025-05-25 223005](https://github.com/user-attachments/assets/bfdfbc12-3cc1-4e39-b633-b12854f509d2)
 
 PID 1227 là tiến trình cha của `php`, lướt lên xíu để tìm tên
 
-![image](https://github.com/user-attachments/assets/de493839-a0be-4fc5-bbda-629965a0aaf6)
+![Screenshot 2025-05-25 223050](https://github.com/user-attachments/assets/73cb09e4-7e86-4eca-b3d7-740c0582e862)
 
 `Answer: upstart`
 
@@ -94,7 +94,7 @@ PID 1227 là tiến trình cha của `php`, lướt lên xíu để tìm tên
 
 Dùng plugin `List File in Memory` tương đương với `linux.pagecache.Files`
 
-![image](https://github.com/user-attachments/assets/af865203-c321-444f-ac4d-1d0efbed819a)
+![Screenshot 2025-05-25 223313](https://github.com/user-attachments/assets/6d00e9a7-8373-447b-a6df-e4bea185b215)
 
 Vì mình đã check qua `bash history` thì thấy được một lệnh `php -S localhost:8080` đã được chạy. Khi chạy thì PHP sẽ tự động dùng thư mục hiện tại làm web root, cho phép truy cập hay upload các file .php
 
@@ -119,19 +119,21 @@ Như phân tích ở trên, nếu chỉ nhìn vào `Bash history` thì chưa th�
 
 `Answer: /var/www/unrestricted-file-upload-exercise-main/victim-service`
 
-![image](https://github.com/user-attachments/assets/f9fd1432-eaf0-46e3-bfa8-7a6106f208ef)
+![Screenshot 2025-05-25 230859](https://github.com/user-attachments/assets/1b025155-d14a-4aa6-b384-5da7f4babc51)
 
 Nối chúng lại theo đúng format và tính md5
 
-![image](https://github.com/user-attachments/assets/aec69b82-ed95-4ba7-a72f-03f2445bc55b)
+![Screenshot 2025-05-25 230957](https://github.com/user-attachments/assets/04f87fee-6fc7-4a6b-a341-9fa78c6f4b75)
 
 `Flag: DVCTF{d0853c14865ee8562983c8faa9896120}`
 
 # _The Breakage_
 
+![image](https://github.com/user-attachments/assets/788fd636-1645-426e-b630-a9de398f1b96)
+
 Bài cho 2 tệp .img của 2 điện thoại android, load vô FTK để extract `data` rồi phân tích
 
-![image](https://github.com/user-attachments/assets/e0019bfe-ba00-48dd-bd73-3e72330cd5c2)
+![Screenshot 2025-05-26 080423](https://github.com/user-attachments/assets/9103785a-1c8c-4f90-aeea-ae3123076cdc)
 
 Bài mô tả cần `PIN` của phone1 và `Password` của phone2 để tạo thành flag `DVCTF{PIN:PASSWORD}`, hướng đi là crack bằng hashcat
 
@@ -139,7 +141,7 @@ Bước đầu là phải dựng `hash` của cả 2 máy, đọc blog [này](ht
 
 - Phone 1:
 
-![image](https://github.com/user-attachments/assets/25432728-b3fa-4802-ae74-a1e0b2a9ea40)
+![Screenshot 2025-05-26 082038](https://github.com/user-attachments/assets/a6d0d5c5-0bda-49ce-9f6b-32dbeef18a04)
 
 Do `salt` lấy ra là số âm nên có 1 số khác biệt, dùng script sau:
 
@@ -159,7 +161,7 @@ print(salt_hex)
 
 Tiến hành crack: `hashcat -m 10 FD55A53B6A21E46C41F82C2FDAE82620:adbe9f7b34117eb1 -a 3 ?d?d?d?d?d?d?d?d`
 
-![image](https://github.com/user-attachments/assets/5453d837-08b5-4ff4-9565-43b1276bd147)
+![Screenshot 2025-05-26 081048](https://github.com/user-attachments/assets/39b1b2cf-3fd2-4f7b-bb10-bfc6d23a5533)
 
 => PIN: `24681379`
 
@@ -169,7 +171,7 @@ Tiến hành crack: `hashcat -m 10 FD55A53B6A21E46C41F82C2FDAE82620:adbe9f7b3411
 
 `hashcat -m 10 1F2E0A7B9912B973B9FB1BB6AADCDE7C:9fb610735c471ce4 /home/kali/Documents/rockyou.txt `
 
-![image](https://github.com/user-attachments/assets/202fb3ca-633e-4d41-8daf-8f16609bd292)
+![Screenshot 2025-05-26 081211](https://github.com/user-attachments/assets/bf0cbb20-c08b-4a8d-8c5e-215bfe649dc8)
 
 => PASSWORD: `blueice309`
 
