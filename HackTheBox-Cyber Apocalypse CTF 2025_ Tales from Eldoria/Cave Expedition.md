@@ -2,17 +2,17 @@
 
 ![image](https://github.com/user-attachments/assets/7483bc04-6ee6-4cd3-be34-48f176dce7bf)
 
-Bài cho tất cả các tệp log được sắp xếp theo bảng chữ cái hmm, ngồi đọc chay hết chắc cũng ốm mất
+Bài cho tất cả các folder `LOG` chứa rất nhiều tệp
 
 Dùng tool Evtxcmd để trích xuất hết ra csv hoặc json rồi ngồi lọc thôi
 
-![image](https://github.com/user-attachments/assets/a577c82e-5dbe-465e-b3f1-b48f64815728)
+![image](https://github.com/user-attachments/assets/501d59ed-216c-485d-af60-526df6b662b9)
 
 Mình đã ngồi lọc hết các log dư thừa, chỉ giữ lại một số lệnh powershell thực thi
 
 Ví dụ
 
-![image](https://github.com/user-attachments/assets/fde5dc8c-ca3e-4f6f-bab6-c87d9b382f6e)
+![image](https://github.com/user-attachments/assets/20daeda9-2e12-468c-895d-d335bbf84124)
 
 Tiếp theo là trích xuất hết đoạn nằm trong commandline khá giống base64 rồi đem đi decode ra được đoạn mã ps1 sau
 
@@ -114,9 +114,9 @@ if ($env:USERNAME -eq "developer56546756" -and $env:COMPUTERNAME -eq "Workstatio
     n90Vp
 }
 ```
-Decode base64 hàm $k34Vm và $m78Vo ra được thông điệp của attacker
+Decode base64 hàm `k34Vm` và `m78Vo` ra được thông điệp của attacker
 
-![image](https://github.com/user-attachments/assets/054c6479-6788-47f3-820b-42c5e623336d)
+![image](https://github.com/user-attachments/assets/d9161157-b885-4466-9254-a5873ac39451)
 
 Giờ sẽ đi vào phân tích kĩ đoạn pws trên
 
@@ -128,9 +128,9 @@ $b64Vb = "n2mmXaWy5pL4kpNWr7bcgEKxMeUx50MJ"
 ```
 
 Data được lấy ở dạng byte từ các file office, cụ thể ở đây mình nhận được là file map.pdf.secured
-- Thực hiện việc Xor data với key1 là a53Va
-- Tiếp theo lấy data vừa rồi xor tiếp với key2 là b64Vb
-- Cuối cùng là base64 encoded, lưu file với đuôi .sercured và xóa file gốc ban đầu
+- Thực hiện việc Xor data với key1 là `a53Va`
+- Tiếp theo lấy data vừa rồi xor tiếp với key2 là `b64Vb`
+- Cuối cùng là base64 `encoded`, lưu file với đuôi `.sercured` và xóa file gốc ban đầu
 
 Script giải mã:
 
@@ -186,7 +186,7 @@ try {
 
 Mở powershell chạy script là done
 
-![image](https://github.com/user-attachments/assets/dddb34d0-787f-4b04-a9ca-e7c4eafe500e)
+![image](https://github.com/user-attachments/assets/bf9b1799-47c5-4660-8802-6ab398ae0f03)
 
 ```
 HTB{Dunl0rn_dRAk3_LA1r_15_n0W_5AF3}
