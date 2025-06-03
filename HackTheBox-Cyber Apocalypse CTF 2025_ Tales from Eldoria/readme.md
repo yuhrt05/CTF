@@ -1,1 +1,2 @@
-![image](https://github.com/user-attachments/assets/94a89594-6f36-4233-9bcf-da33d5406dc2)
+![og-cyber-apocalypse-ctf-2025](https://github.com/user-attachments/assets/75b94153-1431-400e-b92e-bbdb05bcd834)
+
