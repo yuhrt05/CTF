@@ -3,23 +3,23 @@
 
 Bài cho 1 file pcapng, nhiệm vụ là phân tích và trả lời 6 câu hỏi
 
-![image](https://github.com/user-attachments/assets/22193fd6-4267-4ac5-86b1-ae58bff33835)
+![image](https://github.com/user-attachments/assets/5d011710-f222-4c85-9b3c-ad3d7a89a701)
 
 Mới đầu vào, mình follow tcp.stream, vì chỉ có 6 luồng nên mình sẽ ngồi phân tích hết
 
 Đầu tiên là stream 0, thấy được 1 GET request từ IP 194.59.6.66 đến 1 HOST: 13.61.177.227, với yêu cả trả về trang chủ của 1 trang web
 
-![image](https://github.com/user-attachments/assets/d6799aef-c939-410e-9124-d48929177495)
+![image](https://github.com/user-attachments/assets/517d8ada-88df-4070-9636-2e07ac2f9ffa)
 
 Trong phần nav của trang web có 2 liên kết là idex.html và script.html
 
 Kết hợp với đó là mình export objects HTML và save all
 
-![image](https://github.com/user-attachments/assets/495c4f78-8718-4d41-9fbf-11c69d0ca574)
+![image](https://github.com/user-attachments/assets/901a258e-0c58-47f4-a9d9-2b08550393bf)
 
 Ta thử truy cập vào script.html xem sao
 
-![image](https://github.com/user-attachments/assets/f7db701e-b46c-4f79-afe4-49318ddfef6b)
+![image](https://github.com/user-attachments/assets/6561c933-466c-45f6-a62e-9a457ef40ef6)
 
 Đây giống như là một trang web cho người dùng thực hiện nhập mã Python rồi nhấn Execute để thực thi
 
@@ -27,15 +27,15 @@ Chưa có gì đặc biệt lắm, nên cùng đi đến với stream thứ 1
 
 Tiếp tục là GET request từ 194.59.6.66 đối với server và ở gần cuối có 1 lệnh GET request tới /script.html
 
-![image](https://github.com/user-attachments/assets/9c25a9cc-8506-4dd7-8e63-1c55541000c2)
+![image](https://github.com/user-attachments/assets/399719a7-8c3a-44be-b21e-828400f69244)
 
 Khi ng dùng nhập mã và thực thi trên trang này thì nó sẽ gửi 1 yêu cầu POST/execute đến server
 
 Và ngay sau đó là stream 3, vẫn tiếp tục là IP đó đã nhập mã và thực thi, nhìn script Python này uy tín vcl :v
 
-![image](https://github.com/user-attachments/assets/49ab7110-ed45-4025-a8db-7efbd7d0aca3)
+![image](https://github.com/user-attachments/assets/644ac6e6-2e7d-4637-ba49-01151c705d35)
 
-Sau đó, stream 4 thì server đã thực hiện gửi ec2amaz-bktvi3e\administrator và có những phản hồi từ 1 IP __khác__ là 13.61.7.128. Đến đây mình sẽ có 1 số nhận định sau
+Sau đó, stream 4 thì server đã thực hiện gửi `ec2amaz-bktvi3e\administrator` và có những phản hồi từ 1 IP __khác__ là 13.61.7.128. Đến đây mình sẽ có 1 số nhận định sau
 
 - Thứ nhất, IP chịu trách nhiệm cho việc xâm phạm web của câu hỏi 1 đề cập chắc chắn là 194.59.6.66
 
@@ -52,22 +52,22 @@ Answer: execute
 
 - Thứ ba, IP 13.61.7.128 rất có thể là máy chủ C2 (Command & Control), nơi attacker có thể điều khiển hệ thống đã bị khai thác và ở câu 4 cũng có hỏi liên quan đến C2 nhưng mình nhập không đúng do thiếu port ( mình sẽ phân tích tiếp đoạn này ở bên dưới)
 
-Tiếp theo, mình sẽ đi phân tích ở đoạn mã Python mà attacker đã gửi đi, đoạn script thực thi bị nén marshal, và bz2.
+Tiếp theo, mình sẽ đi phân tích ở đoạn mã Python mà attacker đã gửi đi, đoạn script thực thi bị nén `bz2` sau đó là `marshal.loads` rồi `exec`
 
-Giải nén xong, mình đã đưa về được file .pyc nhưng kh thể đưa về mã nguồn .py được, sau đó AI có hỗ trợ mình có thể đưa về mã assembly để phân tích
+Giải nén xong, mình đã đưa về được file `.pyc` nhưng kh thể đưa về mã nguồn `.py` được, sau đó AI có hỗ trợ mình có thể đưa về bytecode
 
-![image](https://github.com/user-attachments/assets/3280d011-54ff-4151-ba77-e9ef660791e0)
+![image](https://github.com/user-attachments/assets/5f897085-d713-415e-9fbe-867ea6dce88e)
 
 Ngồi đọc 1 lúc, thì mình thấy được đáp án cho câu 3
 
-![image](https://github.com/user-attachments/assets/4dfab106-3dcf-4b16-ba7f-606e63da6453)
+![image](https://github.com/user-attachments/assets/c5c1014f-9c51-4008-b378-fb92f624029a)
 
 ```
 3. What is the name of the obfuscation tool used by the attacker?
 Answer: Py-Fuscate
 ```
 
-Vì mã assembly quá dài, và mình méo hiểu gì nên nhờ AI đưa về .py theo đúng logic
+Vì bytecode quá dài, và mình méo hiểu gì nên nhờ AI đưa về .py theo đúng logic
 
 ```python
 import os, socket, threading, time, random, string
@@ -140,7 +140,7 @@ if __name__ == '__main__':
     threading.Thread(target=receive, args=(client, k)).start()
 ```
 
-- Chương trình này là một client kết nối tới một server (có địa chỉ IP và cổng cố định: 13.61.7.218:55155), kết hợp với những phân tích trc đó thì đã có đáp án cho câu 4
+- Chương trình này là một client kết nối tới một C&C (có địa chỉ IP và cổng cố định: 13.61.7.218:55155), kết hợp với những phân tích trc đó thì đã có đáp án cho câu 4
 ```
 4. What is the IP address and port used by the malware to establish a connection with the Command and Control (C2) server?
 Answer: 13.61.7.218:55155
@@ -149,8 +149,9 @@ Answer: 13.61.7.218:55155
 Sau khi kết nối tới C2 server xong thì thực hiện:
 - Lấy thông tin người dùng thông qua whoami
 
-- Thông tin này được gửi tới server cùng với khóa ngẫu nhiên (user + SEPARATOR + k), k chính là khóa để thực hiện mã hóa AES-CBC như trong script trên. Từ đây có câu trả lời cho câu 5
-![image](https://github.com/user-attachments/assets/d5817d64-1180-4afc-bb02-ebb306f4f6b4)
+- Thông tin này được gửi tới server cùng với khóa ngẫu nhiên (user + SEPARATOR + k), k chính là khóa để thực hiện mã hóa AES-CBC như trong script trên. Từ đây có câu trả lời cho câu 5\
+
+![image](https://github.com/user-attachments/assets/2ae51843-4297-4065-b2dc-4718a62a7073)
 
 ```
 5. What encryption key did the attacker use to secure the data?
@@ -161,7 +162,7 @@ Answer: 5UUfizsRsP7oOCAq
 
 Mình sẽ dùng key đó để decrypt dữ liệu gửi đi tại đây là sẽ có đáp án cho câu 6
 
-![giaima](https://github.com/user-attachments/assets/d3d3debb-8be0-49c9-89bc-7710f9dfd44b)
+![toolpie](https://github.com/user-attachments/assets/383869b1-1895-4b44-895b-84dfccb80b73)
 
 Lấy dữ liệu ở dạng Raw, rồi lưu vào 1 file riêng
 
@@ -200,11 +201,11 @@ key = "5UUfizsRsP7oOCAq"        # Key giống lúc mã hóa
 decrypt_file(input_file, output_file, key)
 ```
 
-![image](https://github.com/user-attachments/assets/054251ed-0b74-4cc6-a8af-d6aa74594979)
+![image](https://github.com/user-attachments/assets/7a9ef9dd-2660-466a-b496-7e8a2add00d7)
 
 Check MD5
 
-![image](https://github.com/user-attachments/assets/fe5dd1f3-65a8-47cf-b9af-8f6553ea7323)
+![image](https://github.com/user-attachments/assets/80e162e2-24bf-43e7-9ff4-c632ec7ec332)
 
 ```
 6, What is the MD5 hash of the file exfiltrated by the attacker?
