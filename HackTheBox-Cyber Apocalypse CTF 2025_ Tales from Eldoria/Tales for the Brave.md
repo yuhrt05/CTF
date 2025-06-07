@@ -57,7 +57,7 @@ for i, item in enumerate(output):
 - `Key` và `IV` được lấy tại đây
 ![image](https://github.com/user-attachments/assets/66ffc931-65d1-47fc-9164-e6e270bc160e)
 
-Mình nhờ chatgpt viết code python để decrypt toàn bộ (hoặc có thể dùng `Java compiler online`) nhưng mình cũng không hiểu sao có một số chỗ bị lỗi khi decrypt hmm
+Dùng python để decrypt toàn bộ (hoặc có thể dùng `Java compiler online`) nhưng mình cũng không hiểu sao có một số chỗ bị lỗi khi decrypt hmm
 
 ![image](https://github.com/user-attachments/assets/6aa8ab70-8a3f-46ed-b8ef-52f06dbb4e6e)
 
