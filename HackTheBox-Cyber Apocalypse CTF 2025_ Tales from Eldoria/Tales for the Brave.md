@@ -1,6 +1,6 @@
 # _Tales for the Brave_ _(Forensics)_
 
-- Mới vào mình nhận được 1 đoạn `javascript` bị obsfuscate, tiến hành  `deobf` bằng https://lelinhtinh.github.io/de4js/
+- Mới vào mình nhận được 1 đoạn `javascript` bị obsfuscate
 
 ![image](https://github.com/user-attachments/assets/68cab969-4046-4294-80f6-bd96de1f6d8b)
 
