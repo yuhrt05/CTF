@@ -1,26 +1,20 @@
 # _UNDER CONTROL_ _(FORSENSICS)_
 
-![image](https://github.com/user-attachments/assets/9e6bf7b3-c9ee-43d6-ac87-b5c487fac275)
+![image](https://github.com/user-attachments/assets/d9874123-7251-4cce-ab2e-2fe7bdcf011a)
 
-Thử thách cho 1 file pcap, dùng wireshark phân tích
+Thử thách cho 1 file pcap. Có thể thấy 1 gói tin http GET request file `/Danh%20s%C3%A1ch%20ph%C3%A2n%20thi.xls` liền export file đó về
 
-![image](https://github.com/user-attachments/assets/987707cc-9378-40a3-a062-dec58d12006e)
+![image](https://github.com/user-attachments/assets/f263bcaf-5871-42f5-a96c-f0b082d57354)
 
-Có thể thấy 1 gói tin http GET request đối với file **/Danh%20s%C3%A1ch%20ph%C3%A2n%20thi.xls** liền export http file đó về
+Mở thử, thấy thông báo nên chắc chắn dính macro
 
-Khả năng rất cao là office dính vba nên cho lên máy ảo mới dám mở
+![image](https://github.com/user-attachments/assets/10bc89ba-2a4a-4729-946e-30f49ac880a1)
 
-![image](https://github.com/user-attachments/assets/873fb97d-65a1-41bf-94ea-b2fafa49c537)
+Đem qua `KaliLinux` dùng `olevba` phân tích
 
-Chắc chắn là dính vba rồi, đem qua kali dùng olevba để phân tích 
+![image](https://github.com/user-attachments/assets/f2bc7b23-7e0c-4e43-b696-1cc17c804ed6)
 
-![image](https://github.com/user-attachments/assets/f8a90da0-7392-4500-84ed-ddfcc5ce4f80)
-
-Nhìn cũng hoa hết mắt 😣 Nhưng thực chất đoạn mã trên bị làm rối bằng cách sử dụng hàm với những kí tự loằng ngoằng và khó hiểu, ngồi xem một lúc thì mình thấy được có 1 thứ gì đó khá giống với đường link nhưng khả năng đã bị mã hóa
-
-![image](https://github.com/user-attachments/assets/36472ae1-7452-423d-a0ea-f0f98ce9595d)
-
-Nét gạch chân dưới và format rất giống với 1 đường link https :v Giờ quay lại với vấn đề chính là đoạn mã vba kia mình sẽ dùng vscode để chỉnh lại các hàm cho dễ đọc
+Khá hoa mắt Nhưng thực chất đoạn mã trên bị làm rối bằng cách sử dụng hàm với những kí tự loằng ngoằng và khó hiểu, dùng vscode để chỉnh lại các hàm cho dễ đọc
 
 ```vba
 Function a(b)
@@ -108,22 +102,21 @@ End Sub
 
 Đây là đoạn code đầu tiên mình chú ý
 
-![image](https://github.com/user-attachments/assets/01dc0c37-759f-4de0-a2d9-7b04f15e01c8)
+![image](https://github.com/user-attachments/assets/216b9f33-d2ac-4bc3-9370-bb1dbde978b0)
 
-Thấy được 1 Function a xử lí chuỗi đầu vào b. Nếu kí tự trong chuỗi b có trong chuỗi c thì hàm sẽ thay thế nó bằng kí tự trong chuỗi d với vị trí tương ứng, kết quả cuối sẽ được lưu vào chuỗi g
-
+Thấy được 1 Function `a` xử lí chuỗi đầu vào `b`. Nếu kí tự trong chuỗi `b` có trong chuỗi `c` thì hàm sẽ thay thế nó bằng kí tự trong chuỗi `d` với vị trí tương ứng, kết quả cuối sẽ được lưu vào chuỗi `g`
+```
 Ví dụ:
 - b = "abc"
 - c = "abcdef"
 - d = "123456"
 
 -> g = "123"
+```
 
-Giờ thì sẽ đi tìm ở các chuỗi bị encypt 
+![image](https://github.com/user-attachments/assets/f8248679-02a6-4c94-b72d-1714363bedfc)
 
-![under](https://github.com/user-attachments/assets/988cf549-3bb1-4496-bf7d-8d21831df675)
-
-Có thể thấy đoạn mã liên tục khởi tạo hàm với 1 chuỗi khó hiểu và gọi hàm a ra để decrypt. Mình sẽ decrypt đoạn này trc tại khá giống với 1 đường link https
+Có thể thấy đoạn mã liên tục khởi tạo hàm với 1 chuỗi khó hiểu và gọi hàm `a` ra để decrypt. Mình sẽ decrypt đoạn này trc tại khá giống với 1 đường link https
 
 ```
 Ü³³Bb://uàb³~uà³Ü¿k¿bE²6xi³Ei³~6xQ/k7¿_iQ_i/fÀ3_o-3Yf0_E6m6kk3_km§3Y03ÀY_3__/²_Ä/À3EÀkfmfÀ@Eããoãä§k@_@ã0ä6_E3-ãY036-@@koo/_Àmb6m@§~Bb@
@@ -152,25 +145,23 @@ print(giaima)
 
 Kết quả là một đường link github
 
-![image](https://github.com/user-attachments/assets/9f85af81-327e-4f83-ad6a-ac7ebd9053d3)
+![image](https://github.com/user-attachments/assets/784b2d61-0767-4db4-b004-2ef9140dd4db)
 
-Mình cũng sẽ thử decode một số hàm khác xem có gì 🤭
+Mình cũng sẽ thử một số hàm khác xem có gì
 
-![image](https://github.com/user-attachments/assets/094485db-9840-4f81-8a4c-a4950c2037b1)
+![image](https://github.com/user-attachments/assets/2f6e4f4a-21cd-458a-b49d-361161304a0d)
 
-Thấy đc chính là các thông báo khi mình ấn vô xem trực tiếp file excel kia
+Thấy đc chính là các thông báo khi chạy trực tiếp file excel kia
 
 Quay lại vấn đề chính là link github kia và đây là nội dung
 
-![image](https://github.com/user-attachments/assets/1ef52a58-0439-4ff4-81e0-570b1a3c69f4)
+![image](https://github.com/user-attachments/assets/c6bc66aa-3f5c-4434-a72b-9d5010266ac1)
 
-decode cái này mình dùng cyberchef cho đơn giản
+![image](https://github.com/user-attachments/assets/14a411f4-79a5-4f19-9238-0934c287b412)
 
-![image](https://github.com/user-attachments/assets/8dc2022d-b344-4c37-9b39-d06597630b51)
+Thấy một đoạn mã pwsh bị obfuscat, dùng powerdecode để làm đẹp hơn
 
-Thấy một đoạn mã pwsh bị obfuscated, dùng powerdecode để làm đẹp hơn
-
-![image](https://github.com/user-attachments/assets/e5a89ce2-1de9-48ea-8adf-4127c8bad879)
+![image](https://github.com/user-attachments/assets/f31cce01-7bcc-4fac-beed-12eff512ea47)
 
 Kết quả:
 
@@ -323,18 +314,18 @@ for (;;){
 ```
 Đoạn mã khá dài, nên mình sẽ chú thích vào ảnh cho dễ hình dung
 
-![2](https://github.com/user-attachments/assets/aef68203-b623-48d2-b970-df98d2461ed5)
+![2](https://github.com/user-attachments/assets/114cc2f4-32d4-44a4-b312-86c142b50240)
 
 KEY:
 >d/3KwjM7m2cGAtLI67KlhDuXI/XRKSTkOlmJXE42R+M=
 
 Tiếp theo:
 
-![4](https://github.com/user-attachments/assets/3992f786-a861-4d8c-a02f-8f2e7beef28e)
+![4](https://github.com/user-attachments/assets/4a55388c-64b6-4195-863f-f01d18274d25)
 
-Đã xác định được dữ liệu cần phân tích tiếp nằm ở yêu cầu HTTP POST
+Có thể thấy dữ liệu được gửi thông qua `HTTP Post request`
 
-![5](https://github.com/user-attachments/assets/ca4304ba-945c-4b10-b237-3d52992d4431)
+![5](https://github.com/user-attachments/assets/91e0c561-6a27-46c0-8a2c-0bbf3de104a7)
 
 Dùng tshark để extract hết đống đó 
 
@@ -342,7 +333,7 @@ Dùng tshark để extract hết đống đó
 
 Có thể thấy ban đầu tên máy tính đã được gửi đi, từ dữ liệu trên lấy được IV bằng 16 byte đầu của dữ liệu mã hóa
 
-![image](https://github.com/user-attachments/assets/9176a2f5-a323-486e-bbfc-f1d88350ca4a)
+![image](https://github.com/user-attachments/assets/c52cb5cc-4b19-43b6-840c-1dabbcd8c8f4)
 
 IV
 >6a 2c 7c 47 1a ea 16 0f 56 8b 6b a2 13 a0 7c 05
@@ -352,11 +343,11 @@ KEY
 
 Phần còn lại sẽ đem đi decode với thứ tự lần lượt là BASE64 -> AES
 
-![image](https://github.com/user-attachments/assets/ae17ca18-111e-42a7-bc93-344e16c8ef78)
+![image](https://github.com/user-attachments/assets/0f65c1ae-d6a8-4bbf-8ce3-1488ba84caed)
 
-Thấy đoạn mã hex, decode tiếp thì nhận đc flag 🫵
+Thấy 1 đoạn hex, decode tiếp là nhận được flag
 
-![image](https://github.com/user-attachments/assets/39ad04e8-f555-4c51-9157-eb126eb89d5e)
+![image](https://github.com/user-attachments/assets/acdac709-5577-4612-8487-02cbef3e1f59)
 
 ```
 FLAG: CHH{D0n't_w0rRy_n0_st@r_wh3rE}
