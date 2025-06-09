@@ -2,8 +2,6 @@
 
 ![image](https://github.com/user-attachments/assets/5f465d4a-4f1b-45f9-9a65-539e340da4cc)
 
->Q1. When was the last failed logon attempt using emman.t user? (UTC)
-
 ## _Solution_
 
 > Q1. When was the last failed logon attempt using emman.t user? (UTC)
