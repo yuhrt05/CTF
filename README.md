@@ -1,3 +1,3 @@
-Vì nghịch ngu nên một số challenge bị mất ảnh
+Vì lí do bất cẩn nên một số challenge bị mất ảnh trong lúc làm
 
-Khá nhiều nên mình chỉ khôi phục được một phần. Phần còn lại là ~~Lười~~
+Khá nhiều nên mình chỉ khôi phục được một phần!
