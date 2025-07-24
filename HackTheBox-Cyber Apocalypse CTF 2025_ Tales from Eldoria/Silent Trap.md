@@ -8,7 +8,7 @@ Bài cho file pcapng, phân tích và trả lời 6 câu hỏi
 
 Follow HTTP stream 4, thấy được cuộc giao tiếp giữa client và server
 
-![image](https://github.com/user-attachments/assets/45b3e307-e00b-4177-9d3e-a4facf88a3eb)
+![image](images/5.png)
 
 Thực hiện GET request xem trước email (_action=preview) trong hộp thư đến (_mbox=INBOX) với UID 71 => opened
 
@@ -22,7 +22,7 @@ Answer: Game Crash on Level 5
 
 Lúc đang làm thì mình ngồi xem HTTP stream 1, thấy có một GET request lấy danh sách email trong hộp thư đến, server sẽ response danh sách dưới dạng json
 
-![image](https://github.com/user-attachments/assets/b7083dff-402a-4887-ac10-a37467192127)
+![image](images/6.png)
 
 Mình thấy được 1 email với tiêu đề `Bug Report - In-game Imbalance Issue in Eldoria`, Eldoria có gì đó giống với tên giải nên mình lấy luôn time của cái email đó
 
@@ -38,21 +38,21 @@ Answer: 2025-02-24_15:46
 
 Export object HTTP, thấy có 1 file zip, khả năng đây sẽ chứa malware
 
-![image](https://github.com/user-attachments/assets/df9b69a4-d5b2-47a9-a40d-de25a6feb603)
+![image](images/7.png)
 
 Save về không unzip được, thử crack cũng kh được, thì khả năng mật khẩu sẽ đc tìm thấy trong pcap
 
 Mình tìm đến stream 8, xem cuộc hội thoại giữa client và server về email liên quan đến malware kia
 
-![image](https://github.com/user-attachments/assets/07e5b8ee-813e-4815-adac-cbb306347451)
+![image](images/8.png)
 
 Mình đoán sẽ có pass unzip ở trong này, thử tìm password thì ra
 
-![image](https://github.com/user-attachments/assets/3a9a1280-c323-4c34-9e0f-1c0d348c63e6)
+![image](images/9.png)
 
 Unzip nhận được 1 file `Eldoria_Balance_Issue_Report.pdf.exe`
 
-![image](https://github.com/user-attachments/assets/0f82fa6e-f65a-48de-a604-63b2cddf66f3)
+![image](images/10.png)
 
 ```
 Answer: c0b37994963cc0aadd6e78a256c51547
@@ -64,17 +64,17 @@ Lúc mới vào làm, thì mình thấy có khá nhiều packet, nên có hỏi 
 
 Thử lọc IMAP thì có đc luôn username và password
 
-![image](https://github.com/user-attachments/assets/5e35d627-5f5e-4bef-a004-a860589ff5f4)
+![image](images/11.png)
 
 Hoặc là có thể reverse con `malware` kia, `.Net` mình dùng dotpeek để decomplie
 
-![image](https://github.com/user-attachments/assets/9bd428c9-c419-4616-940d-0e630be34955)
+![image](images/12.png)
 
 Chương trình trên viết bằng `C#` để kết nối đến `IMAP server` sử dụng giao thức `TCP` và `SSL/TLS`
 
 Nhìn vào hàm creds, đây là hàm lưu thông tin đăng nhập để có thể xác thực với máy chủ email `mail.korptech.net`
 
-![image](https://github.com/user-attachments/assets/bc52c9fe-a5ab-4534-84e0-c83a30040fe4)
+![image](images/13.png)
 
 ```
 Answer: proplayer@email.com:completed
@@ -83,7 +83,7 @@ Answer: proplayer@email.com:completed
 
 Khi làm thì mình cần tìm câu trả lời càng sớm càng tốt, nên đã kiểu đoán mò khá nhiều, mình đã follow hết các stream liên quan đến IMAP nhưng kh thấy có task scheduled nào của attacker, nên mình nghĩ khả năng rất cao là nó nằm trong đống bị mã hóa này
 
-![image](https://github.com/user-attachments/assets/7f906478-0d21-41c5-a15f-878c7c15d78c)
+![image](images/14.png)
 
 Từ đây mình sẽ đi vào phân tích đoạn code C#, chú ý đến các hàm sau
 
@@ -133,7 +133,7 @@ Hàm `execute` thực hiện cố gắng kết nối đến máy chủ email b�
 
 Tiếp theo là hàm mã hóa xor
 
-![image](https://github.com/user-attachments/assets/fc55da73-6e80-4fec-9c54-ad7264dc5838)
+![image](images/15.png)
 
 Hàm sử dụng một mảng byte cố định gồm 256 phần tử làm khóa (key)
 
@@ -242,9 +242,9 @@ print(decrypted.decode(errors="ignore"))
 ```
 Data lấy tại luồng tcp.stream 35
 
-![image](https://github.com/user-attachments/assets/b64acd2d-ecea-468a-94e6-f1254ac15606)
+![image](images/16.png)
 
-![image](https://github.com/user-attachments/assets/43e14527-f763-47e8-9567-0ce002024d9d)
+![image](images/17.png)
 
 ```
 Answer: Synchronization
@@ -253,7 +253,7 @@ Answer: Synchronization
 
 Vẫn tiếp tục là lấy data đem decode, thì ở stream 97 sẽ có được đáp án
 
-![image](https://github.com/user-attachments/assets/4081621b-df23-4606-b13e-91393ccb73d7)
+![image](images/18.png)
 
 ```
 Answer: sk-3498fwe09r8fw3f98fw9832fw
