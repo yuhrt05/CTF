@@ -136,7 +136,7 @@ Tạo file `tmp/.dat` chứa dữ liệu mã hóa, mình sẽ thực hiện tìm
 
 Decrypt bằng cách xor với `0xAA` sau đó là AES
 
-![image](https://hackmd.io/_uploads/ByJs0VcAkl.png)
+![image](images/img2.png)
 
 
 HẾT !!
@@ -157,7 +157,7 @@ Dùng tool này để trích xuất thông tin login
 
 https://github.com/fortra/impacket/blob/master/examples/secretsdump.py
 
-![image](https://hackmd.io/_uploads/SJDLwNc0Je.png)
+![image](images/img3.png)
 
 Lấy NTLM hash của John đem crack 
 
@@ -165,7 +165,7 @@ Pass: `1dodgeneon`
 
 Đăng nhập vào check trong autoruns là thấy được 1 schedule task trông khả nghi
 
-![image](https://hackmd.io/_uploads/SJHWuNcAyx.png)
+![image](images/img4.png)
 
 Tên file đúng phải là `mscms.dll`, đây là cách ngụy trang của malware
 
@@ -173,14 +173,14 @@ Tên file đúng phải là `mscms.dll`, đây là cách ngụy trang của malw
 
 Check md5
 
-![image](https://hackmd.io/_uploads/r1eeKNq0ke.png)
+![image](images/img5.png)
 
 Thấy chương trình được đặt lịch với tên `Calibration Loader`, check trong `Task Scheduler`
 
-![image](https://hackmd.io/_uploads/SylmLFN901x.png)
+![image](images/img6.png)
 
 Check ID
 
-![image](https://hackmd.io/_uploads/SJw-9EqRke.png)
+![image](images/img7.png)
 
 Done.
