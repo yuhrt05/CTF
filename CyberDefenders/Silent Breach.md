@@ -1,6 +1,6 @@
 # Slient Breach
 
-<img width="1336" height="354" alt="image" src="https://github.com/user-attachments/assets/35bdd503-af03-42b9-b564-fdb17f40dbd8" />
+![image](images/img1.png)
 
 ## Solution
 
@@ -8,7 +8,7 @@
 
 Nhận được file `ad1`, load vô FTK imager tìm thấy 1 file `exe` khá sú
 
-<img width="926" height="75" alt="image" src="https://github.com/user-attachments/assets/0d271752-581a-4583-ac35-958a9a165a5d" />
+![image](images/img2.png)
 
 `Answer: 336A7CF476EBC7548C93507339196ABB`
 
@@ -16,7 +16,7 @@ Nhận được file `ad1`, load vô FTK imager tìm thấy 1 file `exe` khá s�
 
 Truy cập vào `History` của  `Microsoft Edge` bằng `DB SQlite`
 
-<img width="1911" height="279" alt="image" src="https://github.com/user-attachments/assets/e582aa39-c01c-414e-8891-770c6bfd9e45" />
+![image](images/img3.png)
 
 `Answer: http://192.168.16.128:8000/IMF-Info.pdf.exe`
 
@@ -31,15 +31,15 @@ Tại câu trên
 Trước hết cần xác định xem dịch vụ email nào đã được chạy trên máy, vì mình không thấy thư mục `windows` nên mình bỏ hướng đi check trong `prefetch`. Thay vào đó mình sẽ đi kiểm tra trong `NTUSER.DAT` hive, cụ thể là trong key `Software\Microsoft\Windows\CurrentVersion\Explorer\UserAssist\
 `
 
-<img width="1331" height="341" alt="image" src="https://github.com/user-attachments/assets/1169a47d-c5cc-4e9d-b65e-adf08a81aebc" />
+![image](images/img4.png)
 
 Sau đó sẽ đi trích xuất file `HxStore.hxd` tại path `C:\Users\AppData\Local\Packages`
 
-<img width="1209" height="271" alt="image" src="https://github.com/user-attachments/assets/e5e6e3eb-d2b9-4efa-bfde-6fe059d0f57f" />
+![image](images/img5.png)
 
 File này được sinh ra bằng `Windows Mail`, lưu ở định dạng nhị phân, không theo chuẩn `EML/MBOX`, nên mình sẽ dùng strings để đọc file
 
-<img width="1190" height="572" alt="image" src="https://github.com/user-attachments/assets/50d42b83-a1e5-4e2c-98c9-13f041c6872d" />
+![image](images/img6.png)
 
 `Answer: 145.67.29.88, 212.33.10.112, 192.168.16.128`
 
@@ -47,7 +47,7 @@ File này được sinh ra bằng `Windows Mail`, lưu ở định dạng nhị 
 
 Phân tích file `exe` kia mình dùng strings cho nhanh vì reverse mất khá nhiều thời gian
 
-<img width="1911" height="217" alt="image" src="https://github.com/user-attachments/assets/7ba7792e-d190-41c7-8438-3ac13444c376" />
+![image](images/img7.png)
 
 Đoạn mã pwsh khá đơn giản, giải mã chuỗi base64 bị đảo ngược và thực thi nó trực tiếp bằng `Invoke-Expression`. Và đây là nội dung sau khi decode
 
@@ -130,6 +130,6 @@ with open("IMF-Mission.pdf", "wb") as f:
     f.write(decrypted)
 ```
 
-<img width="1129" height="310" alt="image" src="https://github.com/user-attachments/assets/ced1fa67-cd9c-498d-9368-f8f75e7c27b8" />
+![image](images/img8.png)
 
 `Answer: CyberDefenders{N3v3r_eX3cuTe_F!l3$_dOwnL0ded_fr0m_M@lic10u5_$erV3r}`
