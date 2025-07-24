@@ -1,18 +1,18 @@
 # _UNDER CONTROL_ _(FORSENSICS)_
 
-![image](https://github.com/user-attachments/assets/d9874123-7251-4cce-ab2e-2fe7bdcf011a)
+![image](images/img1.png)
 
 Thử thách cho 1 file pcap. Có thể thấy 1 gói tin http GET request file `/Danh%20s%C3%A1ch%20ph%C3%A2n%20thi.xls` liền export file đó về
 
-![image](https://github.com/user-attachments/assets/f263bcaf-5871-42f5-a96c-f0b082d57354)
+![image](images/img2.png)
 
 Mở thử, thấy thông báo nên chắc chắn dính macro
 
-![image](https://github.com/user-attachments/assets/10bc89ba-2a4a-4729-946e-30f49ac880a1)
+![image](images/img3.png)
 
 Đem qua `KaliLinux` dùng `olevba` phân tích
 
-![image](https://github.com/user-attachments/assets/f2bc7b23-7e0c-4e43-b696-1cc17c804ed6)
+![image](images/img4.png)
 
 Khá hoa mắt Nhưng thực chất đoạn mã trên bị làm rối bằng cách sử dụng hàm với những kí tự loằng ngoằng và khó hiểu, dùng vscode để chỉnh lại các hàm cho dễ đọc
 
@@ -102,7 +102,7 @@ End Sub
 
 Đây là đoạn code đầu tiên mình chú ý
 
-![image](https://github.com/user-attachments/assets/216b9f33-d2ac-4bc3-9370-bb1dbde978b0)
+![image](images/img5.png)
 
 Thấy được 1 Function `a` xử lí chuỗi đầu vào `b`. Nếu kí tự trong chuỗi `b` có trong chuỗi `c` thì hàm sẽ thay thế nó bằng kí tự trong chuỗi `d` với vị trí tương ứng, kết quả cuối sẽ được lưu vào chuỗi `g`
 ```
@@ -114,7 +114,7 @@ Ví dụ:
 -> g = "123"
 ```
 
-![image](https://github.com/user-attachments/assets/f8248679-02a6-4c94-b72d-1714363bedfc)
+![image](images/img6.png)
 
 Có thể thấy đoạn mã liên tục khởi tạo hàm với 1 chuỗi khó hiểu và gọi hàm `a` ra để decrypt. Mình sẽ decrypt đoạn này trc tại khá giống với 1 đường link https
 
@@ -145,23 +145,23 @@ print(giaima)
 
 Kết quả là một đường link github
 
-![image](https://github.com/user-attachments/assets/784b2d61-0767-4db4-b004-2ef9140dd4db)
+![image](images/img7.png)
 
 Mình cũng sẽ thử một số hàm khác xem có gì
 
-![image](https://github.com/user-attachments/assets/2f6e4f4a-21cd-458a-b49d-361161304a0d)
+![image](images/img8.png)
 
 Thấy đc chính là các thông báo khi chạy trực tiếp file excel kia
 
 Quay lại vấn đề chính là link github kia và đây là nội dung
 
-![image](https://github.com/user-attachments/assets/c6bc66aa-3f5c-4434-a72b-9d5010266ac1)
+![image](images/img9.png)
 
-![image](https://github.com/user-attachments/assets/14a411f4-79a5-4f19-9238-0934c287b412)
+![image](images/img10.png)
 
 Thấy một đoạn mã pwsh bị obfuscat, dùng powerdecode để làm đẹp hơn
 
-![image](https://github.com/user-attachments/assets/f31cce01-7bcc-4fac-beed-12eff512ea47)
+![image](images/img11.png)
 
 Kết quả:
 
@@ -314,26 +314,22 @@ for (;;){
 ```
 Đoạn mã khá dài, nên mình sẽ chú thích vào ảnh cho dễ hình dung
 
-![2](https://github.com/user-attachments/assets/114cc2f4-32d4-44a4-b312-86c142b50240)
+![image](images/img12.png)
 
 KEY:
 >d/3KwjM7m2cGAtLI67KlhDuXI/XRKSTkOlmJXE42R+M=
 
 Tiếp theo:
 
-![4](https://github.com/user-attachments/assets/4a55388c-64b6-4195-863f-f01d18274d25)
+![image](images/img13.png)
 
 Có thể thấy dữ liệu được gửi thông qua `HTTP Post request`
 
-![5](https://github.com/user-attachments/assets/91e0c561-6a27-46c0-8a2c-0bbf3de104a7)
-
-Dùng tshark để extract hết đống đó 
-
-![image](https://github.com/user-attachments/assets/8519d87c-4485-4d79-9a6b-101b15ccb515)
+![image](images/img14.png)
 
 Có thể thấy ban đầu tên máy tính đã được gửi đi, từ dữ liệu trên lấy được IV bằng 16 byte đầu của dữ liệu mã hóa
 
-![image](https://github.com/user-attachments/assets/c52cb5cc-4b19-43b6-840c-1dabbcd8c8f4)
+![image](images/img15.png)
 
 IV
 >6a 2c 7c 47 1a ea 16 0f 56 8b 6b a2 13 a0 7c 05
@@ -343,11 +339,11 @@ KEY
 
 Phần còn lại sẽ đem đi decode với thứ tự lần lượt là BASE64 -> AES
 
-![image](https://github.com/user-attachments/assets/0f65c1ae-d6a8-4bbf-8ce3-1488ba84caed)
+![image](images/img16.png)
 
 Thấy 1 đoạn hex, decode tiếp là nhận được flag
 
-![image](https://github.com/user-attachments/assets/acdac709-5577-4612-8487-02cbef3e1f59)
+![image](images/img17.png)
 
 ```
 FLAG: CHH{D0n't_w0rRy_n0_st@r_wh3rE}
