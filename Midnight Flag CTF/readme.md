@@ -132,7 +132,7 @@ Tạo file `tmp/.dat` chứa dữ liệu mã hóa, mình sẽ thực hiện tìm
 
 `python3 /home/kali/volatility3/vol.py -f challenge.lime linux.pagecache.InodePages --find /tmp/.dat --dump`
 
-![image](https://hackmd.io/_uploads/SJ7R3N5A1l.png)
+![image](images/img1.png)
 
 Decrypt bằng cách xor với `0xAA` sau đó là AES
 
