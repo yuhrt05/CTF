@@ -3,23 +3,23 @@
 
 Bài cho 1 file pcapng, nhiệm vụ là phân tích và trả lời 6 câu hỏi
 
-![image](https://github.com/user-attachments/assets/5d011710-f222-4c85-9b3c-ad3d7a89a701)
+![image](images/45.png)
 
 Mới đầu vào, mình follow tcp.stream, vì chỉ có 6 luồng nên mình sẽ ngồi phân tích hết
 
 Đầu tiên là stream 0, thấy được 1 GET request từ IP 194.59.6.66 đến 1 HOST: 13.61.177.227, với yêu cả trả về trang chủ của 1 trang web
 
-![image](https://github.com/user-attachments/assets/517d8ada-88df-4070-9636-2e07ac2f9ffa)
+![image](images/46.png)
 
 Trong phần nav của trang web có 2 liên kết là idex.html và script.html
 
 Kết hợp với đó là mình export objects HTML và save all
 
-![image](https://github.com/user-attachments/assets/901a258e-0c58-47f4-a9d9-2b08550393bf)
+![image](images/47.png)
 
 Ta thử truy cập vào script.html xem sao
 
-![image](https://github.com/user-attachments/assets/6561c933-466c-45f6-a62e-9a457ef40ef6)
+![image](images/48.png)
 
 Đây giống như là một trang web cho người dùng thực hiện nhập mã Python rồi nhấn Execute để thực thi
 
@@ -27,13 +27,13 @@ Chưa có gì đặc biệt lắm, nên cùng đi đến với stream thứ 1
 
 Tiếp tục là GET request từ 194.59.6.66 đối với server và ở gần cuối có 1 lệnh GET request tới /script.html
 
-![image](https://github.com/user-attachments/assets/399719a7-8c3a-44be-b21e-828400f69244)
+![image](images/49.png)
 
 Khi ng dùng nhập mã và thực thi trên trang này thì nó sẽ gửi 1 yêu cầu POST/execute đến server
 
 Và ngay sau đó là stream 3, vẫn tiếp tục là IP đó đã nhập mã và thực thi, nhìn script Python này uy tín vcl :v
 
-![image](https://github.com/user-attachments/assets/644ac6e6-2e7d-4637-ba49-01151c705d35)
+![image](images/50.png)
 
 Sau đó, stream 4 thì server đã thực hiện gửi `ec2amaz-bktvi3e\administrator` và có những phản hồi từ 1 IP __khác__ là 13.61.7.128. Đến đây mình sẽ có 1 số nhận định sau
 
@@ -56,11 +56,11 @@ Tiếp theo, mình sẽ đi phân tích ở đoạn mã Python mà attacker đã
 
 Giải nén xong, mình đã đưa về được file `.pyc` nhưng kh thể đưa về mã nguồn `.py` được, sau đó AI có hỗ trợ mình có thể đưa về bytecode
 
-![image](https://github.com/user-attachments/assets/5f897085-d713-415e-9fbe-867ea6dce88e)
+![image](images/51.png)
 
 Ngồi đọc 1 lúc, thì mình thấy được đáp án cho câu 3
 
-![image](https://github.com/user-attachments/assets/c5c1014f-9c51-4008-b378-fb92f624029a)
+![image](images/52.png)
 
 ```
 3. What is the name of the obfuscation tool used by the attacker?
@@ -151,7 +151,7 @@ Sau khi kết nối tới C2 server xong thì thực hiện:
 
 - Thông tin này được gửi tới server cùng với khóa ngẫu nhiên (user + SEPARATOR + k), k chính là khóa để thực hiện mã hóa AES-CBC như trong script trên. Từ đây có câu trả lời cho câu 5\
 
-![image](https://github.com/user-attachments/assets/2ae51843-4297-4065-b2dc-4718a62a7073)
+![image](images/53.png)
 
 ```
 5. What encryption key did the attacker use to secure the data?
@@ -162,7 +162,7 @@ Answer: 5UUfizsRsP7oOCAq
 
 Mình sẽ dùng key đó để decrypt dữ liệu gửi đi tại đây là sẽ có đáp án cho câu 6
 
-![toolpie](https://github.com/user-attachments/assets/383869b1-1895-4b44-895b-84dfccb80b73)
+![image](images/54.png)
 
 Lấy dữ liệu ở dạng Raw, rồi lưu vào 1 file riêng
 
@@ -201,11 +201,11 @@ key = "5UUfizsRsP7oOCAq"        # Key giống lúc mã hóa
 decrypt_file(input_file, output_file, key)
 ```
 
-![image](https://github.com/user-attachments/assets/7a9ef9dd-2660-466a-b496-7e8a2add00d7)
+![image](images/55.png)
 
 Check MD5
 
-![image](https://github.com/user-attachments/assets/80e162e2-24bf-43e7-9ff4-c632ec7ec332)
+![image](images/56.png)
 
 ```
 6, What is the MD5 hash of the file exfiltrated by the attacker?
