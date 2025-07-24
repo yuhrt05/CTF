@@ -1,18 +1,17 @@
 # _Cave Expedition_ _(FORSENSICS)_
 
-![image](https://github.com/user-attachments/assets/7483bc04-6ee6-4cd3-be34-48f176dce7bf)
 
 Bài cho tất cả các folder `LOG` chứa rất nhiều tệp
 
 Dùng tool Evtxcmd để trích xuất hết ra csv hoặc json rồi ngồi lọc thôi
 
-![image](https://github.com/user-attachments/assets/501d59ed-216c-485d-af60-526df6b662b9)
+![image](images/1.png)
 
 Mình đã ngồi lọc hết các log dư thừa, chỉ giữ lại một số lệnh powershell thực thi
 
 Ví dụ
 
-![image](https://github.com/user-attachments/assets/20daeda9-2e12-468c-895d-d335bbf84124)
+![image](images/2.png)
 
 Tiếp theo là trích xuất hết đoạn nằm trong commandline khá giống base64 rồi đem đi decode ra được đoạn mã ps1 sau
 
@@ -116,8 +115,7 @@ if ($env:USERNAME -eq "developer56546756" -and $env:COMPUTERNAME -eq "Workstatio
 ```
 Decode base64 hàm `k34Vm` và `m78Vo` ra được thông điệp của attacker
 
-![image](https://github.com/user-attachments/assets/d9161157-b885-4466-9254-a5873ac39451)
-
+![image](images/3.png)
 Giờ sẽ đi vào phân tích kĩ đoạn pws trên
 
 Chương trình thực hiện mã hóa Xor 2 lần với 2 key bị base64 encrypt
@@ -186,7 +184,7 @@ try {
 
 Mở powershell chạy script là done
 
-![image](https://github.com/user-attachments/assets/bf9b1799-47c5-4660-8802-6ab398ae0f03)
+![image](images/4.png)
 
 ```
 HTB{Dunl0rn_dRAk3_LA1r_15_n0W_5AF3}
