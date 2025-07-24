@@ -2,11 +2,11 @@
 
 - Mới vào mình nhận được 1 đoạn `javascript` bị obsfuscate
 
-![image](https://github.com/user-attachments/assets/68cab969-4046-4294-80f6-bd96de1f6d8b)
+![image](images/26.png)
 
 Tiến hành  `deobf` bằng https://lelinhtinh.github.io/de4js/
 
-![image](https://github.com/user-attachments/assets/e2301bbb-39bc-4e4c-a6c7-e58ecda3f31f)
+![image](images/27.png)
 
 Giải thích sơ qua chút:
 
@@ -48,22 +48,22 @@ output = deobfuscate("Ats8ep%%e6Sr%prB%feUseEynatcc4%ad", 1198358)
 for i, item in enumerate(output):
     print(f"[{i}] = {item}")
 ```
-![image](https://github.com/user-attachments/assets/c16745cd-0cde-4f63-8b0e-d3c61be4a8dd)
+![image](images/28.png)
 
 `Ví dụ: CryptoJS[_$_9b39[4]][_$_9b39[3]][_$_9b39[2]] = CryptoJS.enc.Base64.parse`
 
 - Tiếp theo, đoạn `ciphertext` bị `AES encrypt` và `Base64 encode` nên gọi các hàm ra để giải mã rồi dùng `eval` để thực thi trực tiếp
-![image](https://github.com/user-attachments/assets/cf2fdfe1-a928-42a2-b79e-aacad4215030)
+![image](images/29.png)
 - `Key` và `IV` được lấy tại đây
-![image](https://github.com/user-attachments/assets/66ffc931-65d1-47fc-9164-e6e270bc160e)
+![image](images/30.png)
 
 Dùng python để decrypt toàn bộ (hoặc có thể dùng `Java compiler online`) nhưng mình cũng không hiểu sao có một số chỗ bị lỗi khi decrypt hmm
 
-![image](https://github.com/user-attachments/assets/6aa8ab70-8a3f-46ed-b8ef-52f06dbb4e6e)
+![image](images/31.png)
 
 Tiếp tục dùng `de4js` để deobf
 
-![image](https://github.com/user-attachments/assets/78ea882d-4c9f-4341-8545-25b5b6618efa)
+![image](images/32.png)
 
 Chức năng nó khá tương tự đoạn `java` vừa nãy và sau khi deobf toàn bộ thì có được đoạn mã sau:
 
@@ -166,9 +166,9 @@ for (var i = 0; i < checkboxes.length; i++) {
 Tóm tắt code:
 
 - Đoạn code trên giải mã một `enc_token` là `nZiIjaXAVuzO4aBCf5eQ5ifQI7rUBI3qy/5t0Djf0pG+tCL3Y2bKBCFIf3TZ0Q==` bằng `RC4 drop` với key được xử lí thông qua hàm `G()`
-  ![image](https://github.com/user-attachments/assets/5b2c2579-d1fe-4491-abdc-e7caef2140b1)
+  ![image](images/33.png)
 - Tham số được truyền vào trong hàm `G()` là `s3cur3k3y`
-  ![image](https://github.com/user-attachments/assets/f3749af6-ec7f-4697-8827-1fd79b984c03)
+  ![image](images/34.png)
 
 Ta tiến hành decode `Key` bằng `python`
 
@@ -222,45 +222,45 @@ expected = G(special)
 # In ra kết quả của G
 print(f"G('{special}') =", expected)
 ```
-![image](https://github.com/user-attachments/assets/c48c994a-c0f7-4eeb-8ea4-7a85004eabcb)
+![image](images/35.png)
 
 Có được key là `0p3r4t10n_4PT_Un10n`, lấy key đó giải mã đoạn `enc_token` ta được một token của một `botTelegram`
 
-![image](https://github.com/user-attachments/assets/62ba0796-11e3-4346-b0ad-be3d1fb3300c)
+![image](images/36.png)
 
 Mình dùng tool [này](https://github.com/soxoj/telegram-bot-dumper) để dump toàn bộ `message` của bot
 
 `Bot` gửi cho mình 1 file `.zip` trong `media` và kèm cả `pass` để giải nén. Nó chú thích thêm là chỉ nhắm tới `Brave Browser users` nên tiến hành tải trình duyệt `Brave` về
 
-![image](https://github.com/user-attachments/assets/7a7debc1-1d53-4b7c-8196-3a7ea9da8031)
+![image](images/37.png)
 
 Đến đây mình phải tham khảo `writeups` thì mới làm được tiếp, nôm na thì reverse malware sẽ không khả thi nên tiến hành debug động bằng cách thực thi trực tiếp trên máy ảo và bật `wireshark` để bắt gói tin
 
-![image](https://github.com/user-attachments/assets/ebc57e04-8fcd-4d62-af3d-6de7bb050c00)
+![image](images/38.png)
 
 Nó thực hiện truy vấn `DNS` đến tên miền `zolsc2s65u.htb` trên port `31337`, giờ ta sẽ đi fake `IP` bằng địa chỉ loopback là `127.0.0.1` và `domain` bằng cách thêm chúng vào `/etc/hosts`
 
-![image](https://github.com/user-attachments/assets/d22585a5-13bf-42cd-8880-005339f63749)
+![image](images/39.png)
 
 Sau đó khởi chạy một server http
 
-![image](https://github.com/user-attachments/assets/92755378-5850-482c-8a66-a7271720e5f1)
+![image](images/40.png)
 
 Tiến hành mở chạy lại `malware` và mở `wireshark`
 
-![image](https://github.com/user-attachments/assets/bcdb9cd6-59ba-4351-89a2-990218296333)
+![image](images/41.png)
 
 Thấy được 1 `HTTP Post.Request`, trong đó có 1 đoạn `Bearer Token`
 
-![image](https://github.com/user-attachments/assets/66c487c4-92bc-431f-9e57-a546ea567ae6)
+![image](images/42.png)
 
 Đây là một `JWT (Json Web Token)` dùng để xác thực người dùng, dùng https://jwt.io/ để decode token
 
-![image](https://github.com/user-attachments/assets/fef7ec2e-1fe1-4104-8e37-0c021d03d190)
+![image](images/43.png)
 
 Trong phần `auth` có một đoạn base64, tiến hành decode là nhận được flag
 
-![image](https://github.com/user-attachments/assets/23ab7d50-ae8a-46ba-8a26-1c34f00a59c2)
+![image](images/44.png)
 
 `Flag: HTB{APT_c0nsp1r4c13s_b3h1nd_b3n1gn_l00k1ng_s1t3s}`
 
