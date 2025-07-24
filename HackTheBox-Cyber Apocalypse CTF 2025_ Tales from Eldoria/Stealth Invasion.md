@@ -4,7 +4,7 @@
 
 Bài cho file memdump.elf, lần đầu mình gặp file dump mà đuôi là elf nên liền check file cái đã
 
-![image](https://github.com/user-attachments/assets/ad26c248-08be-41ed-b602-34d179c02fcd)
+![image](images/19.png)
 
 Vẫn đúng là file dump bth thôi, giờ dùng volatility để phân tích
 
@@ -12,7 +12,7 @@ Vẫn đúng là file dump bth thôi, giờ dùng volatility để phân tích
 
 Câu này dùng plugin windows.pslist
 
-![image](https://github.com/user-attachments/assets/10ba534a-2020-44ea-8c33-990590845349)
+![image](images/20.png)
 
 ```
 Answer: 4080
@@ -22,7 +22,7 @@ Answer: 4080
 
 Câu này dùng windows.filescan | grep desktop
 
-![image](https://github.com/user-attachments/assets/25810f27-8975-4220-87a4-4612375e4ab3)
+![image](images/21.png)
 
 ```
 Answer: malext
@@ -108,10 +108,10 @@ document.addEventListener("paste", (event) => {
 ```
 Script trên là một phần của `Chrome Extensions`, nó như một `Keylogger` dùng để lưu lại lịch sử nhấn phím của người dùng. Hỏi chatgpt thì mình có được vị trí lưu
 
-![image](https://github.com/user-attachments/assets/dbe75334-1858-4399-908c-a64496c67b27)
+![image](images/22.png)
 
 
-![image](https://github.com/user-attachments/assets/3b20cdbb-2e24-4678-b022-f7158b4ee539)
+![image](images/23.png)
 
 ```
 Answer: nnjofihdjilebhiiemfmdlpbdkbjcpae
@@ -128,7 +128,7 @@ Answer: 000003.log
 
 Mình dumpfiles `000003.log` về, tệp log này ghi lại lịch sử nhấn phím người dùng bởi `malicious extensions` ở trên
 
-![image](https://github.com/user-attachments/assets/b2799f19-cba8-4019-85b4-2e51c9fc0629)
+![image](images/24.png)
 
 Có thể thấy người dùng truy cập vào drive.google.com rồi thực hiện login, nên từ đây có thể lấy được luôn đáp án cho câu 6
 
@@ -138,7 +138,7 @@ Answer: drive.google.com
 
 >6. What is the password of selene@rangers.eldoria.com
 
-![image](https://github.com/user-attachments/assets/b9492575-0c8c-4648-9d42-5652e77bb9df)
+![image](images/25.png)
 
 ```
 Answer: clip-mummify-proofs
