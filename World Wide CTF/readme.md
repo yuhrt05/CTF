@@ -61,7 +61,7 @@ Remove-Item $MyInvocation.MyCommand.Path -Force
 ```
 - Đầu tiên thực hiện decode b64 hàm `kXVWlUwNPEw` ghi ra file `update.exe`
 - Thực thi file, ẩn file
-- Thiết lập cơ chế `persistance`: `HKCU:\Software\Microsoft\Windows\CurrentVersion\Run\lAoprv = update.exe path`. Mình có thể thấy sự xuất hiện của hoạt động này trong `autoruns` ~~Disable ngay nha~~![image](image/5.png)
+- Thiết lập cơ chế `persistance`: `HKCU:\Software\Microsoft\Windows\CurrentVersion\Run\lAoprv = update.exe path`. Mình có thể thấy sự xuất hiện của hoạt động này trong `autoruns` ~~Disable ngay nha~~              ![image](image/5.png)
 - File `update.exe` được lưu tại `USERPROFILE\Documents\J1Csum3Dcj\`
 
 Mình bắt đầu thực hiện việc `debug` tĩnh malware và đây là hàm `main`
@@ -159,7 +159,9 @@ int __fastcall main(int argc, const char **argv, const char **envp)
   return 0;
 }
 ```
-- Thấy được đây là một con `malware` có dấu hiệu của việc chống `sandbox\debug`. Sau đó cấp quyền `read/write/excecute` cho vùng nhớ `loc_140001520` bằng `VirtualProtect`![image](image/13.png)
+- Thấy được đây là một con `malware` có dấu hiệu của việc chống `sandbox\debug`. Sau đó cấp quyền `read/write/excecute` cho vùng nhớ `loc_140001520` bằng `VirtualProtect`
+
+![image](image/13.png)
 - Dùng thuật toán key scheduling kiểu RC4 để sinh S-box với `key` là `advapi32.dll`![image](image/14.png)
 - Dùng `RC4 key stream` thực hiện `xor` với `loc_140001520`
 
@@ -197,4 +199,4 @@ Cụ thể hơn thì đây khả năng là danh sách các tên `file/source` đ
 
 Thấy được 1 đường link `https://192.168.75.130?flag=d3dme2YxbDNmMXhfdDBfc2wxdjNyX2IzNGMwbn0=`, tiến hành decode b64 ta nhận được flag
 
-`wwf{f1l3f1x_t0_sl1v3r_b34c0n}`
+FLAG: `wwf{f1l3f1x_t0_sl1v3r_b34c0n}`
