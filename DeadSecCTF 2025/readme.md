@@ -428,6 +428,8 @@ Mình lại ngồi mò chay hết một đống thư mục thì có được `vi
 ![image](image/25.png)
 
 `Answer: 1911008734`
+
+Tổng hợp đáp án
 ```
 ┌──(kali㉿kali)-[~]
 └─$ nc nc.deadsec.quest 32570
