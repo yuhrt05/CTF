@@ -452,3 +452,240 @@ Good Job! You answered all questions correctly! 🔥 Here is your flag:
 DEAD{337954be2dfa9e2d_ef02dc3a63383f61}
 
 ```
+# _F - Forensics_
+
+![image](image/26.png)
+
+Bài cung cấp cho mình 1 file `dump.mem`. Let's go!
+
+>Q1. We'll start with a little sanity check, what's the sha256 hash of the file ?
+
+Đơn giản là check hash thôi
+
+![image](image/27.png)
+
+`Answer: 9f9d089ad84173dc40e910ad1ba1d584bb5c9b2e82ae2164d6bd22d3b37a7588`
+
+>Q2. What is the full path to the malicious elf file ?
+
+Trước hết mình dùng `pslist` để liệt kê tiến trình, thấy được các `process` như `bash, su, sudo` đã hoạt động kèm theo đó là một tiến trình khá sus là `malware-f`
+
+![image](image/28.png)
+
+Nên mình tiến hành kiểm tra lịch sử `bash`
+
+![image](image/29.png)
+
+Có thể thấy `bash history` dài như 1 cuốn sớ, với những hành động lặp đi lặp lại như `wget, chmod, sudo su, clear, exit,...` chủ yếu là để làm rối người chơi nên mình chọn cách đơn giản hơn là check file trong `Ram` với `malicious file` là `malware-f`
+
+![image](image/30.png)
+
+`Answer: /root/malware-f`
+
+>Q3. The malware checks for virtual environments through a system file, what is it ? (full path)
+
+Tiến hành dump `malicious file` về máy, với `Inode addr` là `0x8a888c032f08`
+
+![image](image/31.png)
+
+Mình dùng `ida` để `reverse` và đây là hàm main
+
+```C
+__int64 __fastcall main(__int64 a1, char **a2, char **a3)
+{
+  __int64 v3; // rax
+
+  if ( (unsigned int)sub_10C0(a1, a2, a3) || !sub_1290(*a2, "systemd") )
+  {
+    if ( !(unsigned int)sub_1280() )
+      sub_1FD4();
+    return 0;
+  }
+  else
+  {
+    v3 = sub_1090(*a2);
+    sub_1050(*a2, "[kworker/0:0]", v3);
+    if ( (int)sub_1280() <= 0 )
+    {
+      sub_1140();
+      sub_11B0(0);
+      sub_10A0("/");
+      sub_1130(0);
+      sub_1130(1);
+      sub_1130(2);
+      if ( !(unsigned int)sub_1661() )
+      {
+        sub_1E9E();
+        sub_1BBC();
+        sub_1919();
+        sub_176D();
+        sub_1F48();
+        if ( !(unsigned int)sub_1280() )
+          sub_1FD4();
+        if ( !(unsigned int)sub_1280() )
+          sub_1AC4();
+        if ( !(unsigned int)sub_1280() )
+          sub_1CCA();
+        while ( 1 )
+        {
+          sub_1270(3600);
+          sub_1E27();
+        }
+      }
+      return 0;
+    }
+    else
+    {
+      return 0;
+    }
+  }
+}
+```
+
+Có thể thấy được hàm `main` chủ yếu gọi các hàm con ra để test điều kiện và thực thi nếu thỏa mãn. Ta có hàm `sub_1661()` như sau:
+
+![image](image/32.png)
+
+- Đây là một hàm phát hiện `VM/Sanbox`, cụ thể nó thực hiện kiểm tra thông tin từ `/proc/cpuinfo` trên hệ thống `linux`
+- Nếu có sự xuất hiện của `hypervisor`, `QEMU` hay `VMWare` thì `return 1` có nghĩa phát hiện `VM/Sanbox`, ngừng thực thi chương trình
+
+=> Tệp hệ thống mà `malware` sử dụng để phát hiện `VM/Sanbox` là `/proc/cpuinfo`
+
+>Q4. The malware installed a fake service as a persistence mechanism, what was the service name ?
+
+Sau khi check xong máy ảo, thì thực thi tiếp chương trình, và đây là hàm `sub_176D()`:
+
+![image](image/33.png)
+
+Hàm này có chức năng thiết lập cơ chế `persistance` bằng cách:
+- Tạo file `.dbus.service`trong thư mục `~/.config/systemd/user/default.target.wants/` với `fake new` là `System Bus`
+- Dịch vụ này thực thi `/lib/.X11-unix/.X1` sau khi sleep 300 giây
+- Chạy `systemctl enable --now .dbus.service` để kích hoạt ngay lập tức dịch vụ và cấu hình tự động chạy lại sau `reboot`
+
+Từ đó ta thấy được `fake service` được thêm vào là `.dbus.service`.
+
+>Q5. The malware connects to two C2 IPs, what are they ? (ip1 - ip2)
+
+Tìm đến 1 hàm khác là `sub_1CCA()`:
+
+![image](image/34.png)
+
+- Malware cố gắng kết nối đến hai `C2 IP` trên port `443`. Nếu một trong hai thất bại, thực hiện mở `/bin/sh` để attacker có thể tương tác.
+
+Dễ dàng thấy được 2 `C2 IP` là `185.143.223.107 - 45.133.216.219`
+
+>Q6. The malware copies itself and imitates a library, where is it stored ?
+
+Ngay trước hàm `sub_176D()` ở câu 4 là hàm `sub_1919()`:
+
+![image](image/35.png)
+
+- Nó đọc nội dung bản thân từ `/proc/self/exe` và ghi ra file `/lib/.X11-unix/.X1`
+- Đặt quyền thực thi cho file mới
+- Đặt thuộc tính không thể sửa `(immutable)` để chống bị xóa/gỡ.
+
+Như vậy, thư viện được được dùng ở đây là `/lib/.X11-unix/.X1`
+
+>Q7. What command does the malware use to make the new copied file immutable ?
+
+Tại hàm `sub_1919()` có gọi thêm hàm `sub_1886()` như sau:
+
+![image](image/36.png)
+
+Hàm này thực hiện lệnh `chattr +i /lib/.X11-unix/.X1` để ngăn không cho người dùng `sửa/xóa` file `malware` đã sao chép trước đó
+
+`Answer: chattr +i`
+
+>Q8. What three debugging techniques does the malware specifically check for in its anti-debug routine ? (1-2-3)
+
+![image](image/37.png)
+
+`Answer: LD_PRELOAD-strace-ltrace`
+
+>Q9. Looks like the malware is injecting an ssh key, what type is this key ?
+
+![image](image/38.png)
+
+Nhảy vào hàm `sub_1A5E()`
+
+![image](image/39.png)
+
+`Answer: ssh-ed25519`
+
+>Q10. Where is that key being injected ? (full path)
+
+![image](image/40.png)
+
+`Answer: /root/.ssh/authorized_keys`
+
+>Q11. What command is the malware using to clear all traces of executed commands ?
+
+![image](image/41.png)
+
+`Answer: history -c`
+
+>Q12. How often is the log cleaning function being executed ? (in seconds)
+
+![image](image/42.png)
+
+`Answer: 3600`
+
+Tổng hợp đáp án:
+```
+┌──(kali㉿kali)-[~]
+└─$ nc nc.deadsec.quest 31166
+
+Answer all the questions and you'll get the flag. Good Luck !! :3
+
+We'll start with a little sanity check, what's the sha256 hash of the file ?
+> 9f9d089ad84173dc40e910ad1ba1d584bb5c9b2e82ae2164d6bd22d3b37a7588
+[+] Correct!
+
+What is the full path to the malicious elf file ?
+> /root/malware-f
+[+] Correct!
+
+The malware checks for virtual environments through a system file, what is it ? (full path)
+> /proc/cpuinfo                       
+[+] Correct!
+
+The malware installed a fake service as a persistence mechanism, what was the service name ?
+> .dbus.service
+[+] Correct!
+
+The malware connects to two C2 IPs, what are they ? (ip1 - ip2)
+> 185.143.223.107 - 45.133.216.219
+[+] Correct!                                                                                             
+
+The malware copies itself and imitates a library, where is it stored ?
+> /lib/.X11-unix/.X1
+[+] Correct!                                                                                             
+
+What command does the malware use to make the new copied file immutable ?
+> chattr +i
+[+] Correct!                                                                                             
+
+What three debugging techniques does the malware specifically check for in its anti-debug routine ? (1-2-3)                                                                                                       
+> LD_PRELOAD-strace-ltrace
+[+] Correct!                                                                                             
+
+Looks like the malware is injecting an ssh key, what type is this key ?
+> ssh-ed25519
+[+] Correct!                                                                                             
+
+Where is that key being injected ? (full path)
+> /root/.ssh/authorized_keys
+[+] Correct!                                                                                             
+
+What command is the malware using to clear all traces of executed commands ?
+> history -c
+[+] Correct!                                                                                             
+
+How often is the log cleaning function being executed ? (in seconds)
+> 3600
+[+] Correct!                                                                                             
+
+[+] Here is the flag:
+DEAD{You_still_like_memory_dumps_280be1cf55548812}
+```
+
